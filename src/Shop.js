@@ -1,21 +1,14 @@
 import React from "react"
-import Item from "./Item"
-// import { cardData } from "./cardData"
+import Item from "./components/Item"
+import Cart from "./components/Cart"
 import { apitest } from "./apitest"
 
 function Shop() {
 
-    // const items = cardData.map(card => {
-    //     return (
-    //         <Item 
-    //         name={card.name}
-    //         price={card.price}
-    //         img={card.img}
-    //         />
-    //     )
-    // })
 
     const [cardList, setCardList] = React.useState([])
+    const [productCart, setProductCart] = React.useState([])
+
 
     async function fetchData(cardArray) {
         let newCardList = []
@@ -23,7 +16,6 @@ function Shop() {
             const cardInfo = await fetch(`https://api.scryfall.com/cards/search?q=${card}`)
             const cardjson = await cardInfo.json()
             newCardList = [...newCardList, cardjson.data[0]]
-            // console.log(`Name: ${cardjson.data[0].name}, Price: ${cardjson.data[0].prices.usd}`)
         }
         setCardList(newCardList)
     }
@@ -37,26 +29,33 @@ function Shop() {
         }
     }
 
+    function addToCart(item) {
+        setProductCart(prevProductCart => {
+           return [...prevProductCart, item]
+        })
+        console.log(productCart)
+    }
+
     React.useEffect(() => {
         fetchData(apitest)
     },[])
 
     const items = cardList.map((card) => {
-        console.log(card)
         return (
             <Item 
             name={card.name} 
             price={card.prices.usd}
             img={getImage(card)}
+            addToCart={addToCart}
+            id={card.oracle_id}
+            key={card.oracle_id}
             />
         )
     })
 
     return (
         <div className="shop--container">
-            <div className="cart--sticky">
-
-            </div>
+            <Cart productCart={productCart} />
             <h1>Magic Angels Shop</h1>
             <div className="shop--items">{items}</div>
         </div>
@@ -64,3 +63,7 @@ function Shop() {
 }
 
 export default Shop
+
+//TODO:
+//style the cart a bit more
+//add cart via state

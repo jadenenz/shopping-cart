@@ -58,7 +58,7 @@ nav {
     text-align: center;
 }
 
-.item--container > img {
+.item--container > img, .cart-item--container > img {
     width: 224px;
     height: 312px;
 }

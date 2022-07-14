@@ -71,7 +71,7 @@ function setQuantity(id, quantity) {
 }
 
   return (
-    <HashRouter >
+    <HashRouter>
       <div className="app--container">
         <Navbar productCart={productCart} getTotalQuantity={getTotalQuantity} />
           <Routes>

@@ -4,6 +4,7 @@ import CartItem from "./CartItem"
 function Cart(props) {
 
     const cartItems = props.productCart.map(product => {
+        console.log(props.productCart)
         return (
             <CartItem 
             name={product.name}

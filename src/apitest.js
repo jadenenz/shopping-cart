@@ -1,5 +1,6 @@
 export const apitest = [
-    'archangel-avacyn',
+    // 'archangel-avacyn',
+    'shepherd-of-heroes',
     'platinum-angel',
     'resplendent-angel',
     'baneslayer-angel',

@@ -1,12 +1,16 @@
 import React from "react"
 import PropTypes from 'prop-types'
 
-function Item({ cardData, quantity, addToCart, setQuantity }) {
+function Item({ cardData, quantity, addToCart, setQuantity, deleteFromCart }) {
 
-
-
+    
     function handleChange(event) {
-        setQuantity(cardData.oracle_id,parseInt(event.target.value))
+        console.log('change event value',event.target.value)
+        setQuantity(cardData.oracle_id,Number(event.target.value))
+        if (event.target.value === ''){
+            console.log('delete card data',cardData)
+            deleteFromCart(cardData)
+        }
     }
 
     function handleCart() {
@@ -27,12 +31,16 @@ function Item({ cardData, quantity, addToCart, setQuantity }) {
             <button onClick={downQuantity}>-</button>
             <input 
             className="item--input" 
-            type='text' 
-            value={quantity} 
+            type='number'
+            pattern="[0-9]*"
+            inputMode="numeric"
+            max="99"
+            value={quantity}
             onChange={handleChange}
             name='quantity'
             />
             <button onClick={upQuantity}>+</button>
+            <button onClick={() => deleteFromCart(cardData)}>Delete</button>
         </div>
     )
 
@@ -43,7 +51,7 @@ function Item({ cardData, quantity, addToCart, setQuantity }) {
             <div className="item--name">{cardData.name}</div>
             <div className="item--cart">
                 { quantity > 0 && itemQuantity}
-                { quantity === undefined && <button onClick={handleCart}className="item--add">Add</button>}
+                { (quantity === undefined || quantity === 0) && <button onClick={handleCart}className="item--add">Add to Cart</button>}
             </div>
         </div>
     )

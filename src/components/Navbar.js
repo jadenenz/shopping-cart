@@ -1,10 +1,12 @@
 import React from "react"
 import { Link } from 'react-router-dom'
 
-function Navbar() {
+function Navbar({ productCart, getTotalQuantity }) {
     const navStyle = {
         color: 'white'
     }
+
+    let totalQuantity = getTotalQuantity()
 
     return (
         <nav>
@@ -15,6 +17,9 @@ function Navbar() {
                 </Link>
                 <Link style={navStyle} to="/shop">
                     <li>Shop</li>
+                </Link>
+                <Link style={navStyle} to="/cart">
+                    <li>Cart - {totalQuantity}</li>
                 </Link>
             </ul>
         </nav>

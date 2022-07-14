@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar"
 import Homepage from "./Homepage"
 import Shop from "./Shop"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { HashRouter, Routes, Route } from "react-router-dom"
 import React from "react"
 import Cart from "./components/Cart"
 import { apitest } from "./apitest"
@@ -37,7 +37,6 @@ function App() {
       const findResult = prevProductCart.findIndex(product => {
         return item.oracle_id === product.oracle_id
       })
-      console.log('find result', findResult)
 
       const newState = [...prevProductCart]
       newState.splice(findResult,1)
@@ -72,7 +71,7 @@ function setQuantity(id, quantity) {
 }
 
   return (
-    <BrowserRouter>
+    <HashRouter >
       <div className="app--container">
         <Navbar productCart={productCart} getTotalQuantity={getTotalQuantity} />
           <Routes>
@@ -81,7 +80,7 @@ function setQuantity(id, quantity) {
             <Route path="/cart" element={<Cart productCart={productCart} />} />
           </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
